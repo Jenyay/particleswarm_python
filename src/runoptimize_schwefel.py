@@ -1,5 +1,3 @@
-import numpy as np
-
 from swarm_schwefel import SwarmSchwefel
 from utils import printResult
 
@@ -10,8 +8,8 @@ if __name__ == "__main__":
     dimension = 3
     swarmsize = 2000
 
-    minvalues = np.array([-500] * dimension)
-    maxvalues = np.array([500] * dimension)
+    minvalues = [-500.0] * dimension
+    maxvalues = [500.0] * dimension
 
     currentVelocityRatio = 0.5
     localVelocityRatio = 2.0

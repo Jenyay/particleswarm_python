@@ -1,17 +1,17 @@
 import numpy as np
 
-from particleswarm.swarm import Swarm
+from particleswarm import Swarm
 
 
 class SwarmSchwefel(Swarm):
     def __init__(
         self,
-        swarmsize,
-        minvalues,
-        maxvalues,
-        currentVelocityRatio,
-        localVelocityRatio,
-        globalVelocityRatio,
+        swarmsize: int,
+        minvalues: list[float],
+        maxvalues: list[float],
+        currentVelocityRatio: float,
+        localVelocityRatio: float,
+        globalVelocityRatio: float,
     ):
         super().__init__(
             swarmsize,

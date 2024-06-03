@@ -1,5 +1,3 @@
-import numpy as np
-
 from swarm_x2 import SwarmX2
 from utils import printResult
 
@@ -10,8 +8,8 @@ if __name__ == "__main__":
     dimension = 5
     swarmsize = 200
 
-    minvalues = np.array([-100] * dimension)
-    maxvalues = np.array([100] * dimension)
+    minvalues = [-100.0] * dimension
+    maxvalues = [100.0] * dimension
 
     currentVelocityRatio = 0.1
     localVelocityRatio = 1.0

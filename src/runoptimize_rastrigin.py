@@ -1,5 +1,3 @@
-import numpy as np
-
 from swarm_rastrigin import SwarmRastrigin
 from utils import printResult
 
@@ -10,8 +8,8 @@ if __name__ == "__main__":
     dimension = 4
     swarmsize = 2000
 
-    minvalues = np.array([-5.12] * dimension)
-    maxvalues = np.array([5.12] * dimension)
+    minvalues = [-5.12] * dimension
+    maxvalues = [5.12] * dimension
 
     currentVelocityRatio = 0.5
     localVelocityRatio = 2.0
