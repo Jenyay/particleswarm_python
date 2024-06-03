@@ -5,22 +5,19 @@ import numpy as np
 from .particle import Particle
 
 
-class Swarm:
+class Swarm(metaclass=ABCMeta):
     """
     Базовый класс для роя частиц. Его надо переопределять для конкретной целевой функции
     """
-
-    __metaclass__ = ABCMeta
-
     def __init__(
-            self,
-            swarmsize: int,
-            minvalues: list[float],
-            maxvalues: list[float],
-            currentVelocityRatio: float,
-            localVelocityRatio: float,
-            globalVelocityRatio: float,
-            ):
+        self,
+        swarmsize: int,
+        minvalues: list[float],
+        maxvalues: list[float],
+        currentVelocityRatio: float,
+        localVelocityRatio: float,
+        globalVelocityRatio: float,
+    ):
         """
         swarmsize - размер роя (количество частиц)
         minvalues - список, задающий минимальные значения для каждой координаты частицы
@@ -105,8 +102,8 @@ class Swarm:
         return finalFunc
 
     @abstractmethod
-    def _finalFunc(self, position):
-        return 0
+    def _finalFunc(self, position) -> float:
+        return 0.0
 
     @property
     def dimension(self):
@@ -122,19 +119,19 @@ class Swarm:
         ratio - вес штрафа
         """
         penalty1 = sum(
-                [
-                    ratio * abs(coord - minval)
-                    for coord, minval in zip(position, self.minvalues)
-                    if coord < minval
-                    ]
-                )
+            [
+                ratio * abs(coord - minval)
+                for coord, minval in zip(position, self.minvalues)
+                if coord < minval
+            ]
+        )
 
         penalty2 = sum(
-                [
-                    ratio * abs(coord - maxval)
-                    for coord, maxval in zip(position, self.maxvalues)
-                    if coord > maxval
-                    ]
-                )
+            [
+                ratio * abs(coord - maxval)
+                for coord, maxval in zip(position, self.maxvalues)
+                if coord > maxval
+            ]
+        )
 
         return penalty1 + penalty2
