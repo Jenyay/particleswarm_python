@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from typing import Optional
 
 import numpy as np
 
@@ -38,7 +39,7 @@ class Swarm(metaclass=ABCMeta):
         self._localVelocityRatio = localVelocityRatio
         self._globalVelocityRatio = globalVelocityRatio
 
-        self._globalBestFinalFunc = None
+        self._globalBestFinalFunc: Optional[float] = None
         self._globalBestPosition = None
 
         self._swarm = self._createSwarm()
@@ -90,7 +91,7 @@ class Swarm(metaclass=ABCMeta):
     def globalBestFinalFunc(self):
         return self._globalBestFinalFunc
 
-    def getFinalFunc(self, position):
+    def getFinalFunc(self, position) -> float:
         assert len(position) == len(self.minvalues)
 
         finalFunc = self._finalFunc(position)

@@ -13,25 +13,25 @@ class Particle:
         position - начальное положение частицы (список)
         """
         # Текущее положение частицы
-        self.__currentPosition = self.__getInitPosition(swarm)
+        self._currentPosition = self._getInitPosition(swarm)
 
         # Лучшее положение частицы
-        self.__localBestPosition = self.__currentPosition[:]
+        self._localBestPosition = self._currentPosition[:]
 
         # Лучшее значение целевой функции
-        self.__localBestFinalFunc = swarm.getFinalFunc(self.__currentPosition)
+        self._localBestFinalFunc = swarm.getFinalFunc(self._currentPosition)
 
-        self.__velocity = self.__getInitVelocity(swarm)
+        self._velocity = self._getInitVelocity(swarm)
 
     @property
     def position(self):
-        return self.__currentPosition
+        return self._currentPosition
 
     @property
     def velocity(self):
-        return self.__velocity
+        return self._velocity
 
-    def __getInitPosition(self, swarm):
+    def _getInitPosition(self, swarm):
         """
         Возвращает список со случайными координатами для заданного интервала изменений
         """
@@ -40,12 +40,12 @@ class Particle:
             + swarm.minvalues
         )
 
-    def __getInitVelocity(self, swarm):
+    def _getInitVelocity(self, swarm):
         """
         Сгенерировать начальную случайную скорость
         """
-        assert len(swarm.minvalues) == len(self.__currentPosition)
-        assert len(swarm.maxvalues) == len(self.__currentPosition)
+        assert len(swarm.minvalues) == len(self._currentPosition)
+        assert len(swarm.maxvalues) == len(self._currentPosition)
 
         minval = -(swarm.maxvalues - swarm.minvalues)
         maxval = swarm.maxvalues - swarm.minvalues
@@ -67,28 +67,28 @@ class Particle:
         )
 
         # Посчитать новую скорость
-        newVelocity_part1 = commonRatio * self.__velocity
+        newVelocity_part1 = commonRatio * self._velocity
 
         newVelocity_part2 = (
             commonRatio
             * swarm.localVelocityRatio
             * rnd_currentBestPosition
-            * (self.__localBestPosition - self.__currentPosition)
+            * (self._localBestPosition - self._currentPosition)
         )
 
         newVelocity_part3 = (
             commonRatio
             * swarm.globalVelocityRatio
             * rnd_globalBestPosition
-            * (swarm.globalBestPosition - self.__currentPosition)
+            * (swarm.globalBestPosition - self._currentPosition)
         )
 
-        self.__velocity = newVelocity_part1 + newVelocity_part2 + newVelocity_part3
+        self._velocity = newVelocity_part1 + newVelocity_part2 + newVelocity_part3
 
         # Обновить позицию частицы
-        self.__currentPosition += self.__velocity
+        self._currentPosition += self._velocity
 
-        finalFunc = swarm.getFinalFunc(self.__currentPosition)
-        if finalFunc < self.__localBestFinalFunc:
-            self.__localBestPosition = self.__currentPosition[:]
-            self.__localBestFinalFunc = finalFunc
+        finalFunc = swarm.getFinalFunc(self._currentPosition)
+        if finalFunc < self._localBestFinalFunc:
+            self._localBestPosition = self._currentPosition[:]
+            self._localBestFinalFunc = finalFunc
